@@ -1,9 +1,9 @@
-package patricia.secret_recipes.recipes.application;
+package com.patricia.secretrecipes.recipes.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import patricia.secret_recipes.recipes.mapper.RecipeMapper;
-import patricia.secret_recipes.recipes.persistence.RecipeRepository;
+import com.patricia.secretrecipes.recipes.mapper.RecipeMapper;
+import com.patricia.secretrecipes.recipes.persistence.RecipeRepository;
 
 @Service
 @RequiredArgsConstructor

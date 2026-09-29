@@ -1,16 +1,15 @@
-package patricia.secret_recipes.recipes.api.dto;
-
+package com.patricia.secretrecipes.recipes.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import patricia.secret_recipes.recipes.persistence.Category;
+import com.patricia.secretrecipes.recipes.persistence.Category;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecipeResponse {
+public class UpdateRecipeRequest {
 
     public String name;
 

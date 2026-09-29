@@ -1,4 +1,4 @@
-package patricia.secret_recipes;
+package com.patricia.secretrecipes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

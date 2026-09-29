@@ -1,4 +1,4 @@
-package patricia.secret_recipes.recipes.persistence;
+package com.patricia.secretrecipes.recipes.persistence;
 
 import jakarta.persistence.*;
 import lombok.*;

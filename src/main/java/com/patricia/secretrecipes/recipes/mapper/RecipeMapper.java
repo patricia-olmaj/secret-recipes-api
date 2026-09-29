@@ -1,10 +1,10 @@
-package patricia.secret_recipes.recipes.mapper;
+package com.patricia.secretrecipes.recipes.mapper;
 
 import org.mapstruct.*;
-import patricia.secret_recipes.recipes.api.dto.CreateRecipeRequest;
-import patricia.secret_recipes.recipes.api.dto.RecipeResponse;
-import patricia.secret_recipes.recipes.api.dto.UpdateRecipeRequest;
-import patricia.secret_recipes.recipes.persistence.RecipeEntity;
+import com.patricia.secretrecipes.recipes.api.dto.CreateRecipeRequest;
+import com.patricia.secretrecipes.recipes.api.dto.RecipeResponse;
+import com.patricia.secretrecipes.recipes.api.dto.UpdateRecipeRequest;
+import com.patricia.secretrecipes.recipes.persistence.RecipeEntity;
 
 import java.util.List;
 
