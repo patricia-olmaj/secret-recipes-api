@@ -17,6 +17,7 @@ public class RecipeEntity {
     Category category;
     private String ingredients;
     private String instructions;
-    @ManyToOne
-    private UserEntity user;
+    /*@ManyToOne
+    private UserEntity user;*/
+
 }
