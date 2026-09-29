@@ -1,7 +1,6 @@
-package patricia.secret_recipes.api.dto;
+package patricia.secret_recipes.recipes.api.dto;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import patricia.secret_recipes.recipes.persistence.Category;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateRecipeRequest {
+public class RecipeResponse {
 
     public String name;
 

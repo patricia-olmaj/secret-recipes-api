@@ -1,4 +1,4 @@
-package patricia.secret_recipes.api.dto;
+package patricia.secret_recipes.recipes.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
