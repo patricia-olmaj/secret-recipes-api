@@ -1,0 +1,12 @@
+package patricia.secret_recipes.recipes.application;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import patricia.secret_recipes.recipes.persistence.RecipeRepository;
+
+@Service
+@RequiredArgsConstructor
+public class RecipeCommandService {
+    private final RecipeRepository recipeRepository;
+
+}
