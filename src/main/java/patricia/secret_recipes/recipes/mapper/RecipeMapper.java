@@ -1,4 +1,25 @@
 package patricia.secret_recipes.recipes.mapper;
 
-public class RecipeMapper {
+import org.mapstruct.*;
+import patricia.secret_recipes.api.dto.CreateRecipeRequest;
+import patricia.secret_recipes.api.dto.RecipeResponse;
+import patricia.secret_recipes.api.dto.UpdateRecipeRequest;
+import patricia.secret_recipes.recipes.persistence.RecipeEntity;
+
+import java.util.List;
+
+@Mapper (componentModel = "spring")
+public interface RecipeMapper {
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    RecipeEntity toEntity (CreateRecipeRequest request);
+
+    RecipeResponse toResponse (RecipeEntity request);
+
+    List<RecipeResponse> toResponseList(List<RecipeEntity> recipeEntityList);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void update(UpdateRecipeRequest request, @MappingTarget RecipeEntity target);
+
 }
