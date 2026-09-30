@@ -1,7 +1,10 @@
 package com.patricia.secretrecipes.recipes.persistence;
 
+import com.patricia.secretrecipes.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+
 @Entity
 @Table (name="recipes")
 @Getter
@@ -17,7 +20,8 @@ public class RecipeEntity {
     Category category;
     private String ingredients;
     private String instructions;
-    /*@ManyToOne
-    private UserEntity user;*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
 }
