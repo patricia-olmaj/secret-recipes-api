@@ -1,4 +1,4 @@
-package com.patricia.secretrecipes.users;
+package com.patricia.secretrecipes.auth.persistence;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

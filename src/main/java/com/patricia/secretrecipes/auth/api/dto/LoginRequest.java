@@ -1,4 +1,4 @@
-package com.patricia.secretrecipes.auth;
+package com.patricia.secretrecipes.auth.api.dto;
 
 import lombok.*;
 

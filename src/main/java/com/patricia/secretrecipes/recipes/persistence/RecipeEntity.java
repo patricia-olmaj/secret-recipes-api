@@ -1,9 +1,8 @@
 package com.patricia.secretrecipes.recipes.persistence;
 
-import com.patricia.secretrecipes.users.UserEntity;
+import com.patricia.secretrecipes.auth.persistence.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
 
 @Entity
 @Table (name="recipes")
