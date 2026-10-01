@@ -43,4 +43,8 @@ public class RecipesController {
         return ResponseEntity.ok(commandService.updateRecipe(id,request,currentUser));
     }
 
+    @GetMapping("/recipes/test")
+    public String test(){
+        return "TOKEN PERMITIDO A ACCEDER";
+    }
 }
