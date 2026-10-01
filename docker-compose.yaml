@@ -1,4 +1,15 @@
 services:
+  app:
+    build: .
+    container_name: secret-recipes-api
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    restart: on-failure
+
   postgres:
     image: postgres:16
     container_name: secretrecipe_postgres_db
