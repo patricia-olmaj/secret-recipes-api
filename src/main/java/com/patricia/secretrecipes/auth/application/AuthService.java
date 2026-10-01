@@ -6,6 +6,7 @@ import com.patricia.secretrecipes.auth.api.dto.RegisterRequest;
 import com.patricia.secretrecipes.auth.persistence.Role;
 import com.patricia.secretrecipes.auth.persistence.UserEntity;
 import com.patricia.secretrecipes.auth.persistence.UserRepository;
+import com.patricia.secretrecipes.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
     public AuthResponse login (LoginRequest request){
         return new AuthResponse();
@@ -31,6 +33,8 @@ public class AuthService {
                 .build();
 
         userRepository.save(user);
-        return AuthResponse.builder().build();
+        return AuthResponse.builder()
+                .token(jwtService.getToken(user))
+                .build();
     }
 }
