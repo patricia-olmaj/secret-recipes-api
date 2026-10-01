@@ -9,6 +9,10 @@ import com.patricia.secretrecipes.auth.persistence.UserEntity;
 import com.patricia.secretrecipes.auth.persistence.UserRepository;
 import com.patricia.secretrecipes.security.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,9 +21,17 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     public AuthResponse login (LoginRequest request){
-        return new AuthResponse();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
+                request.getPassword()));
+        UserDetails user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(()-> new UsernameNotFoundException("Usuario no encontrado"));
+        String token = jwtService.getToken(user);
+        return AuthResponse.builder()
+                .token(token)
+                .build();
 
     }
 
