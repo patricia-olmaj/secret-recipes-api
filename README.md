@@ -17,3 +17,51 @@ Listar: Ver únicamente la lista de recetas que le pertenecen a ese usuario .
 Actualizar: Modificar los ingredientes de una receta.
 
 Borrar: Eliminar una receta.
+
+
+# Arrancar Dockerfile
+```
+docker compose up --build -d
+```
+# Revisar logs de springboot 
+```
+docker compose logs -f app
+```
+
+Register:
+´´´
+curl -X POST http://localhost:8080/api/v1/auth/register   -H "Content-Type: application/json"   -d '{
+    "username": "patricia23",
+    "password": "prueba123",
+    "firstname": "Pati",
+    "lastname": "Olmaj",
+    "country": "Spain"
+  }'
+´´´
+Login:
+```
+curl -i -X POST http://localhost:8080/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "patricia23",
+    "password": "prueba123"
+  }'
+```
+CREATE RECIPE:
+```
+curl -i -X POST http://localhost:8080/api/v1/recipes \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer AQUI_TOKEN" \
+  -d '{
+    "name": "Tortitas de avena",
+    "category": "BREAKFAST",
+    "ingredients": "Avena, platano, huevo, canela",
+    "instructions": "Mezclar todos los ingredientes y cocinar en una sarten antiadherente."
+  }'
+```
+
+GET RECIPE:
+´´´
+curl -i -X GET http://localhost:8080/api/v1/me/recipes/1 \
+  -H "Authorization: Bearer AQUI_TOKEN"
+´´´
