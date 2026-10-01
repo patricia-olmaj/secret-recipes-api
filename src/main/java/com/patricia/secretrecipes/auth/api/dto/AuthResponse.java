@@ -9,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class AuthResponse {
 
-    public String token;
+    private String token;
 
 }

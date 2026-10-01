@@ -9,14 +9,14 @@ import lombok.*;
 @AllArgsConstructor
 public class RegisterRequest {
 
-    public String username;
+    private String username;
 
-    public String password;
+    private String password;
 
-    public String firstname;
+    private String firstname;
 
-    public String lastname;
+    private String lastname;
 
-    public String country;
+    private String country;
 
 }
