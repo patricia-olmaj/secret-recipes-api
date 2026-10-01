@@ -29,7 +29,7 @@ docker compose logs -f app
 ```
 
 Register:
-´´´
+```
 curl -X POST http://localhost:8080/api/v1/auth/register   -H "Content-Type: application/json"   -d '{
     "username": "patricia23",
     "password": "prueba123",
@@ -37,7 +37,7 @@ curl -X POST http://localhost:8080/api/v1/auth/register   -H "Content-Type: appl
     "lastname": "Olmaj",
     "country": "Spain"
   }'
-´´´
+```
 Login:
 ```
 curl -i -X POST http://localhost:8080/api/v1/auth/login \
@@ -61,7 +61,7 @@ curl -i -X POST http://localhost:8080/api/v1/recipes \
 ```
 
 GET RECIPE:
-´´´
+```
 curl -i -X GET http://localhost:8080/api/v1/me/recipes/1 \
   -H "Authorization: Bearer AQUI_TOKEN"
-´´´
+```
