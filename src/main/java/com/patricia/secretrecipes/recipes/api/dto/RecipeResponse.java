@@ -12,13 +12,13 @@ import com.patricia.secretrecipes.recipes.persistence.Category;
 @NoArgsConstructor
 public class RecipeResponse {
 
-    public Integer id;
+    private Integer id;
 
-    public String name;
+    private String name;
 
-    public Category category;
+    private Category category;
 
-    public String ingredients;
+    private String ingredients;
 
-    public String instructions;
+    private String instructions;
 }

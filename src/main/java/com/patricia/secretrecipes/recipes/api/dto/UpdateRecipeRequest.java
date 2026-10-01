@@ -11,11 +11,11 @@ import com.patricia.secretrecipes.recipes.persistence.Category;
 @NoArgsConstructor
 public class UpdateRecipeRequest {
 
-    public String name;
+    private String name;
 
-    public Category category;
+    private Category category;
 
-    public String ingredients;
+    private String ingredients;
 
-    public String instructions;
+    private String instructions;
 }

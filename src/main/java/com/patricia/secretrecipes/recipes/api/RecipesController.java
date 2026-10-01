@@ -18,17 +18,17 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @Controller
-@RequestMapping("/api/v1/me")
+@RequestMapping("/api/v1")
 public class RecipesController {
 
     private final RecipeQueryService queryService;
     private final RecipeCommandService commandService;
 
-    @GetMapping("/recipes/{id}")
+    @GetMapping("/me/recipes/{id}")
     public ResponseEntity<RecipeResponse> getRecipeById(@PathVariable Integer id, @AuthenticationPrincipal UserDetails currentUser){
         return ResponseEntity.ok(queryService.findRecipeById(id, currentUser));
     }
-    @GetMapping("/recipes")
+    @GetMapping("/me/recipes")
     public ResponseEntity<List<RecipeResponse>> getAllMyRecipes(@AuthenticationPrincipal UserDetails currentUser){
         return ResponseEntity.ok(queryService.listAllRecipes(currentUser));
     }
@@ -43,8 +43,4 @@ public class RecipesController {
         return ResponseEntity.ok(commandService.updateRecipe(id,request,currentUser));
     }
 
-    @GetMapping("/recipes/test")
-    public String test(){
-        return "TOKEN PERMITIDO A ACCEDER";
-    }
 }
