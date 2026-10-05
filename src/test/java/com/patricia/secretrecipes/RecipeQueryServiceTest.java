@@ -5,6 +5,7 @@ import com.patricia.secretrecipes.auth.persistence.Role;
 import com.patricia.secretrecipes.auth.persistence.UserEntity;
 import com.patricia.secretrecipes.recipes.api.dto.RecipeResponse;
 import com.patricia.secretrecipes.recipes.application.RecipeQueryService;
+import com.patricia.secretrecipes.recipes.exception.RecipeNotFoundException;
 import com.patricia.secretrecipes.recipes.mapper.RecipeMapper;
 import com.patricia.secretrecipes.recipes.persistence.RecipeEntity;
 import com.patricia.secretrecipes.recipes.persistence.RecipeRepository;
@@ -18,8 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,6 +75,28 @@ public class RecipeQueryServiceTest {
         verify(recipeRepository, times(1)).findAllByUserId(1);
         verify(recipeMapper, times(1)).toResponseList(mockRecipeEntities);
     }
+
+    @Test
+    void shouldThrowExceptionWhenRecipeNotFoundOrNotOwnedByUser() {
+        Integer recipeId = 1;
+        UserEntity currentUser = createDefaultUser("paquito23");
+
+
+        when(recipeRepository.findByIdAndUserId(recipeId, currentUser.getId()))
+                .thenReturn(Optional.empty());
+
+        RecipeNotFoundException exception = assertThrows(
+                RecipeNotFoundException.class,
+                () -> recipeQueryService.findRecipeById(recipeId, currentUser)
+        );
+
+        assertEquals("Receta no encontrada", exception.getMessage());
+
+        verify(recipeRepository, times(1)).findByIdAndUserId(recipeId, currentUser.getId());
+
+        verifyNoInteractions(recipeMapper);
+    }
+
     public static UserEntity createDefaultUser(String username) {
         UserEntity user = new UserEntity();
         user.setId(1);
