@@ -97,12 +97,13 @@ public class RecipeQueryServiceTest {
         verifyNoInteractions(recipeMapper);
     }
 
+
     public static UserEntity createDefaultUser(String username) {
         UserEntity user = new UserEntity();
         user.setId(1);
         user.setUsername(username);
         user.setFirstname("Patricia");
-        user.setLastname("Olmedo");
+        user.setLastname(" Olmedo");
         user.setPassword("$2a$10$passwordhashedskda");
         user.setCountry("España");
         user.setRole(Role.USER);

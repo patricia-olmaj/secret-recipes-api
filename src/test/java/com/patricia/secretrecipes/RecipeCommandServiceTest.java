@@ -6,6 +6,7 @@ import com.patricia.secretrecipes.recipes.api.dto.CreateRecipeRequest;
 import com.patricia.secretrecipes.recipes.api.dto.RecipeResponse;
 import com.patricia.secretrecipes.recipes.api.dto.UpdateRecipeRequest;
 import com.patricia.secretrecipes.recipes.application.RecipeCommandService;
+import com.patricia.secretrecipes.recipes.exception.RecipeNotFoundException;
 import com.patricia.secretrecipes.recipes.mapper.RecipeMapper;
 import com.patricia.secretrecipes.recipes.persistence.RecipeEntity;
 import com.patricia.secretrecipes.recipes.persistence.RecipeRepository;
@@ -17,8 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -101,6 +101,60 @@ public class RecipeCommandServiceTest {
         verify(recipeMapper, times(1)).update(request, existingEntity);
         verify(recipeRepository, times(1)).save(existingEntity);
         verify(recipeMapper, times(1)).toResponse(savedEntity);
+    }
+
+    @Test
+    void shouldDeleteRecipeSuccessfully() {
+        Integer recipeId = 1;
+        UserEntity currentUser = createDefaultUser("patricia");
+
+        when(recipeRepository.existsByIdAndUserId(recipeId, currentUser.getId()))
+                .thenReturn(true);
+
+        recipeCommandService.delete(recipeId, currentUser);
+
+        verify(recipeRepository, times(1)).existsByIdAndUserId(recipeId, currentUser.getId());
+        verify(recipeRepository, times(1)).deleteById(recipeId);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUpdatingNonExistingRecipe() {
+        Integer recipeId = 1;
+        UserEntity currentUser = createDefaultUser("patricia");
+
+        UpdateRecipeRequest request = new UpdateRecipeRequest();
+        request.setName("Tortilla de patatas");
+
+        when(recipeRepository.findByIdAndUserId(recipeId, currentUser.getId()))
+                .thenReturn(Optional.empty());
+
+        RecipeNotFoundException exception = assertThrows(
+                RecipeNotFoundException.class,
+                () -> recipeCommandService.update(recipeId, request, currentUser)
+        );
+
+        assertEquals("Receta no encontrada", exception.getMessage());
+
+        verify(recipeRepository, times(1)).findByIdAndUserId(recipeId, currentUser.getId());
+        verify(recipeMapper, never()).update(any(), any());
+        verify(recipeRepository, never()).save(any());
+        verify(recipeMapper, never()).toResponse(any());
+    }
+    @Test
+    void shouldNotDeleteRecipeWhenIsNotOwnedByUser() {
+        Integer recipeId = 1;
+        UserEntity otherUser = createDefaultUser("patricia34");
+        otherUser.setId(2);
+
+        when(recipeRepository.existsByIdAndUserId(recipeId, otherUser.getId()))
+                .thenReturn(false);
+        assertThrows(
+                RecipeNotFoundException.class,
+                () -> recipeCommandService.delete(recipeId, otherUser)
+        );
+
+        verify(recipeRepository, times(1)).existsByIdAndUserId(recipeId, 2);
+        verify(recipeRepository, never()).deleteById(any());
     }
 
     public static UserEntity createDefaultUser(String username) {
