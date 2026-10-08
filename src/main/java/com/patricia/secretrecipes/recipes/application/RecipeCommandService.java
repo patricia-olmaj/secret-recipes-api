@@ -18,7 +18,7 @@ public class RecipeCommandService {
     private final RecipeRepository recipeRepository;
     private final RecipeMapper recipeMapper;
 
-    public RecipeResponse createRecipe (CreateRecipeRequest request, UserDetails currentUser){
+    public RecipeResponse create (CreateRecipeRequest request, UserDetails currentUser){
         UserEntity user = (UserEntity) currentUser;
         RecipeEntity recipe = recipeMapper.toEntity(request);
         recipe.setUser(user);
@@ -26,12 +26,20 @@ public class RecipeCommandService {
         return recipeMapper.toResponse(savedRecipe);
     }
 
-    public RecipeResponse updateRecipe (Integer recipeId, UpdateRecipeRequest request, UserDetails currentUser){
+    public RecipeResponse update (Integer recipeId, UpdateRecipeRequest request, UserDetails currentUser){
         UserEntity user = (UserEntity) currentUser;
         RecipeEntity recipeEntity = recipeRepository.findByIdAndUserId(recipeId,user.getId())
                 .orElseThrow(() -> new RecipeNotFoundException("Receta no encontrada"));
         recipeMapper.update(request,recipeEntity);
         RecipeEntity savedRecipe = recipeRepository.save(recipeEntity);
         return recipeMapper.toResponse(savedRecipe);
+    }
+
+    public void delete (Integer recipeId, UserDetails currentUser){
+        UserEntity user = (UserEntity) currentUser;
+        if(!recipeRepository.existsByIdAndUserId(recipeId,user.getId())){
+            throw new RecipeNotFoundException("Receta no encontrada");
+        }
+        recipeRepository.deleteById(recipeId);
     }
 }

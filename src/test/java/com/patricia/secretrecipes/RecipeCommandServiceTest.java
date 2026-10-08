@@ -51,7 +51,7 @@ public class RecipeCommandServiceTest {
         when(recipeRepository.save(mappedEntity)).thenReturn(savedEntity);
         when(recipeMapper.toResponse(savedEntity)).thenReturn(expectedResponse);
 
-        RecipeResponse response = recipeCommandService.createRecipe(request, currentUser);
+        RecipeResponse response = recipeCommandService.create(request, currentUser);
 
         assertNotNull(response);
         assertEquals("Tortitas de avena", response.getName());
@@ -92,7 +92,7 @@ public class RecipeCommandServiceTest {
         when(recipeRepository.save(existingEntity)).thenReturn(savedEntity);
         when(recipeMapper.toResponse(savedEntity)).thenReturn(expectedResponse);
 
-        RecipeResponse response = recipeCommandService.updateRecipe(recipeId, request, currentUser);
+        RecipeResponse response = recipeCommandService.update(recipeId, request, currentUser);
 
         assertNotNull(response);
         assertEquals("5 patatas, 3 huevos, 1 cucharadita de sal", response.getIngredients());

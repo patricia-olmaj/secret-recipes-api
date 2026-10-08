@@ -11,4 +11,6 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Integer> {
     List<RecipeEntity> findAllByUserId(Integer id);
 
     Optional<RecipeEntity> findByIdAndUserId(Integer recipeId, Integer userId);
+
+    boolean existsByIdAndUserId(Integer recipeId,Integer userId);
 }
