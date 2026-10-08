@@ -35,12 +35,17 @@ public class RecipesController {
 
     @PostMapping("/recipes")
     public ResponseEntity<RecipeResponse> createRecipe (@RequestBody CreateRecipeRequest request, @AuthenticationPrincipal UserDetails currentUser){
-        return ResponseEntity.status(HttpStatus.CREATED).body(commandService.createRecipe(request,currentUser));
+        return ResponseEntity.status(HttpStatus.CREATED).body(commandService.create(request,currentUser));
     }
 
     @PatchMapping("/recipes/{id}")
     public ResponseEntity<RecipeResponse> updateRecipe (@PathVariable Integer id, @RequestBody UpdateRecipeRequest request, @AuthenticationPrincipal UserDetails currentUser){
-        return ResponseEntity.ok(commandService.updateRecipe(id,request,currentUser));
+        return ResponseEntity.ok(commandService.update(id,request,currentUser));
     }
 
+    @DeleteMapping("/recipes/{id}")
+    public ResponseEntity<Void> deleteRecipe(@PathVariable Integer id, @AuthenticationPrincipal UserDetails currentUser){
+        commandService.delete(id,currentUser);
+        return ResponseEntity.noContent().build();
+    }
 }
