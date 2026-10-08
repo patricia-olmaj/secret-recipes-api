@@ -2,7 +2,7 @@ package com.patricia.secretrecipes.recipes.application;
 
 import com.patricia.secretrecipes.auth.persistence.UserEntity;
 import com.patricia.secretrecipes.recipes.api.dto.RecipeResponse;
-import com.patricia.secretrecipes.recipes.exception.RecipeNotFoundException;
+import com.patricia.secretrecipes.exception.RecipeNotFoundException;
 import com.patricia.secretrecipes.recipes.persistence.RecipeEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

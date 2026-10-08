@@ -3,16 +3,16 @@ package com.patricia.secretrecipes.auth.application;
 import com.patricia.secretrecipes.auth.api.dto.AuthResponse;
 import com.patricia.secretrecipes.auth.api.dto.LoginRequest;
 import com.patricia.secretrecipes.auth.api.dto.RegisterRequest;
-import com.patricia.secretrecipes.auth.exception.UserAlreadyExistsException;
+import com.patricia.secretrecipes.exception.UserAlreadyExistsException;
 import com.patricia.secretrecipes.auth.persistence.Role;
 import com.patricia.secretrecipes.auth.persistence.UserEntity;
 import com.patricia.secretrecipes.auth.persistence.UserRepository;
+import com.patricia.secretrecipes.exception.UserNotFoundException;
 import com.patricia.secretrecipes.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class AuthService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
                 request.getPassword()));
         UserDetails user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(()-> new UsernameNotFoundException("Usuario no encontrado"));
+                .orElseThrow(()-> new UserNotFoundException("Usuario no encontrado"));
         String token = jwtService.getToken(user);
         return AuthResponse.builder()
                 .token(token)

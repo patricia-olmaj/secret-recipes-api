@@ -6,7 +6,7 @@ import com.patricia.secretrecipes.recipes.api.dto.CreateRecipeRequest;
 import com.patricia.secretrecipes.recipes.api.dto.RecipeResponse;
 import com.patricia.secretrecipes.recipes.api.dto.UpdateRecipeRequest;
 import com.patricia.secretrecipes.recipes.application.RecipeCommandService;
-import com.patricia.secretrecipes.recipes.exception.RecipeNotFoundException;
+import com.patricia.secretrecipes.exception.RecipeNotFoundException;
 import com.patricia.secretrecipes.recipes.mapper.RecipeMapper;
 import com.patricia.secretrecipes.recipes.persistence.RecipeEntity;
 import com.patricia.secretrecipes.recipes.persistence.RecipeRepository;
